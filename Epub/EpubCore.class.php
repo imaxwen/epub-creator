@@ -528,21 +528,49 @@ class EpubCore extends Epub {
 
 		if( $delete_rootDir === TRUE )
 		{
-			$rootpath = rtrim($this->epubRootPath,'/');
-//			$this->rrmdir($rootpath);
+			$this->rrmdir($this->epubRootPath);
 		}
 
 		return $result;
 	}
 
-	function rrmdir($dir) {
-		foreach(glob($dir . '/*') as $file) {
-			if(is_dir($file))
-				$this->rrmdir($file);
-			else
-				unlink($file);
+
+	private function rrmdir($path, $del_dir = TRUE, $level = 0)
+	{
+		// Trim the trailing slash
+		$path = rtrim($path, DIRECTORY_SEPARATOR);
+
+		if ( ! $current_dir = @opendir($path))
+		{
+			return FALSE;
 		}
-		rmdir($dir);
+
+		while (FALSE !== ($filename = @readdir($current_dir)))
+		{
+			if ($filename != "." and $filename != "..")
+			{
+				if (is_dir($path.DIRECTORY_SEPARATOR.$filename))
+				{
+					// Ignore empty folders
+					if (substr($filename, 0, 1) != '.')
+					{
+						$this->rrmdir($path.DIRECTORY_SEPARATOR.$filename, $del_dir, $level + 1);
+					}
+				}
+				else
+				{
+					unlink($path.DIRECTORY_SEPARATOR.$filename);
+				}
+			}
+		}
+		@closedir($current_dir);
+
+		if ($del_dir == TRUE)
+		{
+			return @rmdir($path);
+		}
+
+		return TRUE;
 	}
 
 
