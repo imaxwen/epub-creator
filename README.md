@@ -1,8 +1,8 @@
 eBook Creator via PHP
 ==================
 
-Author: wendoscoo 
-Email : wendosyi@gmail.com
+- Author: Max.wen 
+- Email : wendosyi@gmail.com
 
 ### Create EPUB file by php .
 
