@@ -1,4 +1,4 @@
-Epub-Creator-by-PHP
+eBook Creator via PHP
 ==================
 
 Author: wendoscoo 
