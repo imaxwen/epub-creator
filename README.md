@@ -1,4 +1,4 @@
-Epub-packer-by-PHP
+Epub-Creator-by-PHP
 ==================
 
 Author: wendoscoo 
